@@ -1,15 +1,16 @@
 ﻿@page "/fetchdata"
 
-<PageTitle>Weather forecast</PageTitle>
+<PageTitle>Regenter</PageTitle>
 
-@using BlazorApp.Data
-@inject WeatherForecastService ForecastService
+@using XMedicus.Models
+@using XMedicus.Services
+@inject RulerService RulerService
 
-<h1>Weather forecast</h1>
+<h1>Regenter</h1>
 
-<p>This component demonstrates fetching data from a service.</p>
+<p>Her er de forskellige regenter:</p>
 
-@if (forecasts == null)
+@if (rulers == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -18,20 +19,18 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
+                <th>Navn</th>
+                <th>Periode</th>
+                <th>Slægt</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
+            @foreach (var ruler in rulers)
             {
                 <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
+                    <td>@ruler.Name</td>
+                    <td>@ruler.Rule.Period</td>
+                    <td>@ruler.House</td>
                 </tr>
             }
         </tbody>
@@ -39,10 +38,10 @@ else
 }
 
 @code {
-    private WeatherForecast[]? forecasts;
+    private List<Ruler>? rulers;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+        rulers = await RulerService.GetRulersAsync();
     }
 }
