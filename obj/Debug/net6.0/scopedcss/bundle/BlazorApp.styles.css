@@ -69,6 +69,12 @@ main[b-3dsd3z3yec] {
         padding-right: 1.5rem !important;
     }
 }
+
+label[b-3dsd3z3yec] {
+    display: inline-block;
+    width: 150px;
+    text-align: right;
+}
 /* _content/BlazorApp/Shared/NavMenu.razor.rz.scp.css */
 .navbar-toggler[b-7cxxmz0cwl] {
     background-color: rgba(255, 255, 255, 0.1);

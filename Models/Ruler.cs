@@ -4,6 +4,10 @@ namespace XMedicus.Models
     {
         public int Id { get; }
         public string Name { get; }
+        public string FirstName
+        {
+            get => Name.Split(" ").First();
+        }
         public Rule Rule { get; }
         public string? House { get; }
 
@@ -23,7 +27,11 @@ namespace XMedicus.Models
         public int End { get; }
         public string Period
         {
-            get => $"{(Beginning.HasValue ? Beginning + " - " : (!_toPresent ? "-" : ""))}{End}{(_toPresent ? $"-I dag" : "")}";
+            get => $"{(Beginning.HasValue ? Beginning + " - " : (!_toPresent ? "-" : ""))}{End}{(_toPresent ? $" - I dag" : "")}";
+        }
+        public int Length
+        {
+            get => (int) (Beginning.HasValue ? End - Beginning : (_toPresent ? DateTime.Now.Year - End : 0)); 
         }
 
         public Rule(int? beginning, int end)

@@ -1,6 +1,4 @@
-﻿@page "/fetchdata"
-
-<PageTitle>Regenter</PageTitle>
+﻿@page "/regenter"
 
 @using XMedicus.Models
 @using XMedicus.Services
@@ -12,36 +10,82 @@
 
 @if (rulers == null)
 {
+    <PageTitle>Regenter | Loading</PageTitle>
     <p><em>Loading...</em></p>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Navn</th>
-                <th>Periode</th>
-                <th>Slægt</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var ruler in rulers)
-            {
+    <PageTitle>Regenter | @rulers.Count</PageTitle>
+    <section>
+        <h2>Oplysninger om regenter</h2>
+        <hr />
+        <div>
+            <h4>Mængde af regenter</h4>
+            <p>@rulers.Count</p>
+        </div>
+        <div>
+            <h4>Længeste regerende regent</h4>
+            <p>@rulers.MaxBy(ruler => ruler.Rule.Length).Name</p>
+        </div>
+        <div>
+            <h4>Slægt med længest regerende periode</h4>
+            <p>@rulers.GroupBy(ruler => ruler.House).OrderByDescending(group => group.Sum(ruler => ruler.Rule.Length)).First().First().House</p>
+        </div>
+        <div>
+            <h4>Det mest benyttet navn</h4>
+            <p>@rulers.GroupBy(ruler => ruler.FirstName).OrderByDescending(rulers => rulers.Count()).Select(rulers => rulers.Key).ToList().First()</p>
+        </div>
+        <div>
+            <h4>Danmark startede engang mellem år 700-800, <br>men Danmark har været uden styre i</h4>
+            <p>@rulers.Where(ruler => ruler.Name == "Interregnum").Sum(ruler => ruler.Rule.Length) år</p>
+            <!-- The quesition can be understood in multiple ways. This is gaps between rules.
+                <p>@rulers.Where(ruler => ruler.Rule.Beginning.HasValue ? ruler.Rule.Beginning - rulers[ruler.Id - 2].Rule.End > 0 : false).Sum(ruler => ruler.Rule.Beginning - rulers[ruler.Id - 2].Rule.End) år</p>
+            -->
+        </div>
+        <div></div>
+    </section>
+    <section>
+        <h2>Liste</h2>
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@ruler.Name</td>
-                    <td>@ruler.Rule.Period</td>
-                    <td>@ruler.House</td>
+                    <th>Navn</th>
+                    <th>Periode</th>
+                    <th>Slægt</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var ruler in rulers)
+                {
+                    <tr>
+                        <td>@ruler.Name</td>
+                        <td>@ruler.Rule.Period</td>
+                        <td>@ruler.House</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
 }
 
 @code {
-    private List<Ruler>? rulers;
+    private List<Ruler>? rulers; 
 
     protected override async Task OnInitializedAsync()
     {
         rulers = await RulerService.GetRulersAsync();
     }
 }
+
+<!-- 
+
+    Opgavebeskrivelse:
+
+    Hvor mange regenter er der i listen?
+    Hvem regerede længst? (Og hvor længe?)
+    Hvilken slægt regerede længst? (Og hvor længe?)
+    Hvilket navn har været mest populært?
+    Hvor længe har Danmark været uden regent?
+    Indsætte antallet af objekter i listen, du har hentet, i PageTitle componenten.
+
+-->

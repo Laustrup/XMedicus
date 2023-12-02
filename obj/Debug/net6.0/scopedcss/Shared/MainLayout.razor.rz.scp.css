@@ -68,3 +68,9 @@ main[b-3dsd3z3yec] {
         padding-right: 1.5rem !important;
     }
 }
+
+label[b-3dsd3z3yec] {
+    display: inline-block;
+    width: 150px;
+    text-align: right;
+}
