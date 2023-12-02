@@ -78,7 +78,7 @@
         }
       },
       {
-        "HashCode": -891376953,
+        "HashCode": -1844813522,
         "Kind": "Components.Component",
         "Name": "BlazorApp.Pages.FetchData",
         "AssemblyName": "BlazorApp",
@@ -88,13 +88,23 @@
             "TagName": "FetchData"
           }
         ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "amountId",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "amountId"
+            }
+          }
+        ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "BlazorApp.Pages.FetchData"
         }
       },
       {
-        "HashCode": 77442737,
+        "HashCode": 123206275,
         "Kind": "Components.Component",
         "Name": "BlazorApp.Pages.FetchData",
         "AssemblyName": "BlazorApp",
@@ -104,42 +114,19 @@
             "TagName": "BlazorApp.Pages.FetchData"
           }
         ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "amountId",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "amountId"
+            }
+          }
+        ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "BlazorApp.Pages.FetchData",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
-        "HashCode": -224849593,
-        "Kind": "Components.Component",
-        "Name": "BlazorApp.App",
-        "AssemblyName": "BlazorApp",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "App"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "BlazorApp.App"
-        }
-      },
-      {
-        "HashCode": -1077845890,
-        "Kind": "Components.Component",
-        "Name": "BlazorApp.App",
-        "AssemblyName": "BlazorApp",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "BlazorApp.App"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "BlazorApp.App",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
@@ -193,6 +180,39 @@
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "BlazorApp.Shared.SurveyPrompt",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": -1613854634,
+        "Kind": "Components.Component",
+        "Name": "BlazorApp.Shared.NavMenu",
+        "AssemblyName": "BlazorApp",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "NavMenu"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "BlazorApp.Shared.NavMenu"
+        }
+      },
+      {
+        "HashCode": -1179575551,
+        "Kind": "Components.Component",
+        "Name": "BlazorApp.Shared.NavMenu",
+        "AssemblyName": "BlazorApp",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "BlazorApp.Shared.NavMenu"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "BlazorApp.Shared.NavMenu",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
@@ -293,35 +313,35 @@
         }
       },
       {
-        "HashCode": -1613854634,
+        "HashCode": -224849593,
         "Kind": "Components.Component",
-        "Name": "BlazorApp.Shared.NavMenu",
+        "Name": "BlazorApp.App",
         "AssemblyName": "BlazorApp",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "NavMenu"
+            "TagName": "App"
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "BlazorApp.Shared.NavMenu"
+          "Common.TypeName": "BlazorApp.App"
         }
       },
       {
-        "HashCode": -1179575551,
+        "HashCode": -1077845890,
         "Kind": "Components.Component",
-        "Name": "BlazorApp.Shared.NavMenu",
+        "Name": "BlazorApp.App",
         "AssemblyName": "BlazorApp",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "BlazorApp.Shared.NavMenu"
+            "TagName": "BlazorApp.App"
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "BlazorApp.Shared.NavMenu",
+          "Common.TypeName": "BlazorApp.App",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },

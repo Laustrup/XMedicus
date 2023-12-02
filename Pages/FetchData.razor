@@ -3,6 +3,7 @@
 @using XMedicus.Models
 @using XMedicus.Services
 @inject RulerService RulerService
+@inject IJSRuntime JS
 
 <h1>Regenter</h1>
 
@@ -16,33 +17,62 @@
 else
 {
     <PageTitle>Regenter | @rulers.Count</PageTitle>
-    <section>
-        <h2>Oplysninger om regenter</h2>
-        <hr />
-        <div>
-            <h4>Mængde af regenter</h4>
-            <p>@rulers.Count</p>
+    <h2>Oplysninger om regenter</h2>
+    <hr />  
+    <section class="container">
+        <div class="d-inline-flex p-2">
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#amount" aria-expanded="false" aria-controls="amount">
+                Mængde af regenter
+            </button>
+            <div id="amount" class="collapse">
+                <div class="card card-body ">
+                    @rulers.Count
+                </div>
+            </div>
         </div>
-        <div>
-            <h4>Længeste regerende regent</h4>
-            <p>@rulers.MaxBy(ruler => ruler.Rule.Length).Name</p>
+        <div class="d-inline-flex p-2">
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#longest_ruler_period" aria-expanded="false" aria-controls="longest_ruler_period">
+                Længeste regerende regent
+            </button>
+            <div id="longest_ruler_period" class="collapse">
+                <div class="card card-body">
+                    @rulers.MaxBy(ruler => ruler.Rule.Length).Name
+                </div>
+            </div>
         </div>
-        <div>
-            <h4>Slægt med længest regerende periode</h4>
-            <p>@rulers.GroupBy(ruler => ruler.House).OrderByDescending(group => group.Sum(ruler => ruler.Rule.Length)).First().First().House</p>
+        <div class="d-inline-flex p-2">
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#longest_house_period" aria-expanded="false" aria-controls="longest_house_period">
+                Slægt med længest regerende periode
+            </button>
+            <div id="longest_house_period" class="collapse">
+                <div class="card card-body">
+                    @rulers.GroupBy(ruler => ruler.House).OrderByDescending(group => group.Sum(ruler => ruler.Rule.Length)).First().First().House
+                </div>
+            </div>
         </div>
-        <div>
-            <h4>Det mest benyttet navn</h4>
-            <p>@rulers.GroupBy(ruler => ruler.FirstName).OrderByDescending(rulers => rulers.Count()).Select(rulers => rulers.Key).ToList().First()</p>
+        <div class="d-inline-flex p-2">
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#common_name" aria-expanded="false" aria-controls="common_name">
+                Det mest benyttet navn
+            </button>
+            <div id="common_name" class="collapse">
+                <div class="card card-body">
+                    @rulers.GroupBy(ruler => ruler.FirstName).OrderByDescending(rulers => rulers.Count()).Select(rulers => rulers.Key).ToList().First()
+                </div>
+            </div>
         </div>
-        <div>
-            <h4>Danmark startede engang mellem år 700-800, <br>men Danmark har været uden styre i</h4>
-            <p>@rulers.Where(ruler => ruler.Name == "Interregnum").Sum(ruler => ruler.Rule.Length) år</p>
-            <!-- The quesition can be understood in multiple ways. This is gaps between rules.
-                <p>@rulers.Where(ruler => ruler.Rule.Beginning.HasValue ? ruler.Rule.Beginning - rulers[ruler.Id - 2].Rule.End > 0 : false).Sum(ruler => ruler.Rule.Beginning - rulers[ruler.Id - 2].Rule.End) år</p>
-            -->
+        <div class="d-inline-flex p-2">
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#without_rule" aria-expanded="false" aria-controls="without_rule">
+                Danmark startede engang mellem år 700-800, <br>men Danmark har været uden styre i
+            </button>
+            <div id="without_rule" class="collapse">
+                <div class="card card-body">
+                    <p>@rulers.Where(ruler => ruler.Name == "Interregnum").Sum(ruler => ruler.Rule.Length) år</p>
+                    <!-- The quesition can be understood in multiple ways. This is gaps between rules.
+                        <p>@rulers.Where(ruler => ruler.Rule.Beginning.HasValue ? ruler.Rule.Beginning - rulers[ruler.Id - 2].Rule.End > 0 : false).Sum(ruler => ruler.Rule.Beginning - rulers[ruler.Id - 2].Rule.End) år</p>
+                    -->
+                </div>
+            </div>
         </div>
-        <div></div>
     </section>
     <section>
         <h2>Liste</h2>
@@ -75,6 +105,8 @@ else
     {
         rulers = await RulerService.GetRulersAsync();
     }
+
+    [Parameter] public Int32 amountId {get; set;}
 }
 
 <!-- 

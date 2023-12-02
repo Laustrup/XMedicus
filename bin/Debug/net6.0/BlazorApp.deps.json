@@ -8,12 +8,14 @@
     ".NETCoreApp,Version=v6.0": {
       "BlazorApp/1.0.0": {
         "dependencies": {
-          "Newtonsoft.Json": "13.0.3"
+          "Newtonsoft.Json": "13.0.3",
+          "bootstrap": "5.3.2"
         },
         "runtime": {
           "BlazorApp.dll": {}
         }
       },
+      "bootstrap/5.3.2": {},
       "Newtonsoft.Json/13.0.3": {
         "runtime": {
           "lib/net6.0/Newtonsoft.Json.dll": {
@@ -29,6 +31,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "bootstrap/5.3.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-m0/GEaLwE35B8P1xScFhwAsQi5o6kWPzOVPdGkoFwv+5YjmbgXFPQai71N5APwRCU52ZO4vHYWJ5DYSqKKgivw==",
+      "path": "bootstrap/5.3.2",
+      "hashPath": "bootstrap.5.3.2.nupkg.sha512"
     },
     "Newtonsoft.Json/13.0.3": {
       "type": "package",
