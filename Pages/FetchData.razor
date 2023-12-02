@@ -9,14 +9,14 @@
 
 <p>Her er de forskellige regenter:</p>
 
-@if (rulers == null)
+@if (_rulers == null)
 {
     <PageTitle>Regenter | Loading</PageTitle>
     <p><em>Loading...</em></p>
 }
 else
 {
-    <PageTitle>Regenter | @rulers.Count</PageTitle>
+    <PageTitle>Regenter | @_rulers.Count</PageTitle>
     <h2>Oplysninger om regenter</h2>
     <hr />  
     <section class="container">
@@ -26,7 +26,7 @@ else
             </button>
             <div id="amount" class="collapse">
                 <div class="card card-body ">
-                    @rulers.Count
+                    @_rulers.Count
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@ else
             </button>
             <div id="longest_ruler_period" class="collapse">
                 <div class="card card-body">
-                    @rulers.MaxBy(ruler => ruler.Rule.Length).Name
+                    @_rulerWithLongestRule.Name med en periode på @_rulerWithLongestRule.Rule.Length år
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@ else
             </button>
             <div id="longest_house_period" class="collapse">
                 <div class="card card-body">
-                    @rulers.GroupBy(ruler => ruler.House).OrderByDescending(group => group.Sum(ruler => ruler.Rule.Length)).First().First().House
+                    @_houseWithLongestRule.First().House med en periode på @_houseWithLongestRule.Sum(ruler => ruler.Rule.Length) år
                 </div>
             </div>
         </div>
@@ -56,7 +56,7 @@ else
             </button>
             <div id="common_name" class="collapse">
                 <div class="card card-body">
-                    @rulers.GroupBy(ruler => ruler.FirstName).OrderByDescending(rulers => rulers.Count()).Select(rulers => rulers.Key).ToList().First()
+                    @_rulers.GroupBy(ruler => ruler.FirstName).OrderByDescending(rulers => rulers.Count()).Select(rulers => rulers.Key).ToList().First()
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@ else
             </button>
             <div id="without_rule" class="collapse">
                 <div class="card card-body">
-                    <p>@rulers.Where(ruler => ruler.Name == "Interregnum").Sum(ruler => ruler.Rule.Length) år</p>
+                    <p>@_rulers.Where(ruler => ruler.Name == "Interregnum").Sum(ruler => ruler.Rule.Length) år</p>
                     <!-- The quesition can be understood in multiple ways. This is gaps between rules.
                         <p>@rulers.Where(ruler => ruler.Rule.Beginning.HasValue ? ruler.Rule.Beginning - rulers[ruler.Id - 2].Rule.End > 0 : false).Sum(ruler => ruler.Rule.Beginning - rulers[ruler.Id - 2].Rule.End) år</p>
                     -->
@@ -85,7 +85,7 @@ else
                 </tr>
             </thead>
             <tbody>
-                @foreach (var ruler in rulers)
+                @foreach (var ruler in _rulers)
                 {
                     <tr>
                         <td>@ruler.Name</td>
@@ -99,11 +99,15 @@ else
 }
 
 @code {
-    private List<Ruler>? rulers; 
+    private List<Ruler>? _rulers,
+        _houseWithLongestRule; 
+    private Ruler _rulerWithLongestRule;
 
     protected override async Task OnInitializedAsync()
     {
-        rulers = await RulerService.GetRulersAsync();
+        _rulers = await RulerService.GetRulersAsync();
+        _rulerWithLongestRule = _rulers.MaxBy(ruler => ruler.Rule.Length);
+        _houseWithLongestRule = _rulers.GroupBy(ruler => ruler.House).OrderByDescending(group => group.Sum(ruler => ruler.Rule.Length)).First().ToList();
     }
 
     [Parameter] public Int32 amountId {get; set;}
